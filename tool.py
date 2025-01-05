@@ -1,6 +1,6 @@
 import subprocess
 
-def get_monitor_mode_interface():
+def get_monitor_mode_interface(): # get the name of the interface that is in monitor mode
     try:
         # Run iwconfig command and capture output
         iwconfig_output = subprocess.check_output(['iwconfig'], stderr=subprocess.DEVNULL).decode('utf-8')
@@ -18,12 +18,12 @@ def get_monitor_mode_interface():
     except (subprocess.CalledProcessError, FileNotFoundError):
         
         return None
-def sniff(interface):
+def sniff(interface): # start sniffing on all frequencies
     try:
-        # Construct the command
+        
         command = ['airodump-ng', interface, '-abg']
         
-        # Run the command
+        
         subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
         print("An error occurred while running airodump-ng: ",e)
@@ -36,7 +36,6 @@ def monitor_mode(interface):
     try:
         # Run the airmon-ng command to start monitor mode on the specified interface
         subprocess.run(['airmon-ng', 'start', interface], check=True)
-        print("Successfully started monitor mode on",interface)
     except subprocess.CalledProcessError as e:
         print("Failed to start monitor mode on ",interface,': ',e)
 def wirelessAttack():
@@ -54,12 +53,12 @@ def wirelessAttack():
             check_command = ["airmon-ng", "check"]
     
             try:
-                # Execute the check command
+                
                 check_output = subprocess.run(check_command, capture_output=True, text=True, check=True)
                 print("Processes that may interfere with airmon-ng:")
                 print(check_output.stdout)
         
-                # This command kills the interfering processes
+                # kills interfering processes
                 kill_command = ["airmon-ng", "check", "kill"]
                 kill_output = subprocess.run(kill_command, capture_output=True, text=True, check=True)
         
@@ -71,7 +70,8 @@ def wirelessAttack():
                 print(e.stderr)
             monInterface=input('Enter your interface name: ')
             monitor_mode(monInterface)
-        
+            monMode = get_monitor_mode_interface()
+            print("Successfully started monitor mode on",monMode)
         elif WAchoice=='2':
             monMode = get_monitor_mode_interface()
             sniff(monMode)
@@ -93,7 +93,7 @@ print('''
 
 1. Wireless Attacks
 2. Scanning and Reconnaissance
-3. Social Engineering Attacks
+3. Social Engineering Attacks via TrustedSec's Social-Engineering Toolkit (SET)
 4. Payload Generator
 5. Password Attacks
 ''')
