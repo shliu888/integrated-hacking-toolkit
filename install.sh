@@ -1,3 +1,3 @@
 #!/bin/bash
-chmod +x tool.py
+chmod +x hackingtoolkit.py
 sudo mv hackingtoolkit usr/local/bin
