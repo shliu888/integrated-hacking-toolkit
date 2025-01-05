@@ -276,10 +276,13 @@ def wirelessAttack(): # selection of options for wireless attacks
                 wordlist()
             else:
                 print('Invalid option')
+        elif WAchoice=='BACK':
+            main()
+            
             
                 
             
-  
+#-------------------------------------        
 #-------------Main--------------------
 print('''
 
