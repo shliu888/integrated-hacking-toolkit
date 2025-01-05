@@ -241,7 +241,7 @@ def wirelessAttack(): # selection of options for wireless attacks
             if changeInterface=='y':
                 newInterface=input('Enter the name of the interface whose captured traffic you would like to view: ')
                 viewTraffic(newInterface)
-            elif changeInterface='n':
+            elif changeInterface=='n':
                 viewTraffic(monMode)
             else:
                 print(invalid option)
