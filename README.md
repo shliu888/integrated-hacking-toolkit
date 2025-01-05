@@ -14,7 +14,7 @@ Integration with:
 ✓ Crunch     
 ✓ Arpspoof ... and more!
 
-STATUS: In development. All files are in experimental stage only.
+STATUS: Under development. 
 
 Feel free to suggest edits by creating a pull request.
 
@@ -22,7 +22,7 @@ Getting started:
 
 1. Run install-python.sh to install Python if it's not already installed
 2. Run install-pip.sh to install Pip if it's not already installed
-3. Finally, run install.sh to finalize installation.
+3. Finally, run install.sh with sudo privileges to finalize installation.
 4. Run the toolkit with the command "hackingtoolkit"
 
-Note: This tool is currently designed for Kali Linux, a Debian-based Linux distribution intended for ethical hacking. In order to run install-python.sh and install-pip.sh, you must have a Debian-based distribution. Otherwise, you must install necessary dependencies separately. 
+Note: This tool is currently designed for Kali Linux, a Linux distribution built for penetration testing. In order to run install-python.sh and install-pip.sh, you must have Debian or a Debian-based distribution (like Ubuntu and Kali Linux). Otherwise, you must install necessary dependencies separately.
