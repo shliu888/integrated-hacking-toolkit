@@ -238,7 +238,7 @@ def wirelessAttack(): # selection of options for wireless attacks
         elif WAchoice=='6':
             monMode = get_monitor_mode_interface()
             changeInterface=input('The default interface is',monMode,', would you like to change it? [y/n]: ')
-            if changeInterface='y':
+            if changeInterface=='y':
                 newInterface=input('Enter the name of the interface whose captured traffic you would like to view: ')
                 viewTraffic(newInterface)
             elif changeInterface='n':
