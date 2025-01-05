@@ -5,7 +5,8 @@ Fully integrated hacking suite that includes Nmap, Metasploit, Aircrack-ng suite
 Integration with: 
 
 ✓ Nmap      ✓ Metasploit      ✓ Aircrack-ng suite
-✓ Social-Engineering Toolkit (SET)      ✓ Hydra      ✓ Cupp
+✓ Social-Engineering Toolkit (SET)      
+✓ Hydra      ✓ Cupp
 ✓ Crunch      ✓ Arpspoof ... and more!
 
 STATUS: In development. All files are in experimental stage only.
