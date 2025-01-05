@@ -1,6 +1,6 @@
 Fully integrated hacking suite that includes Nmap, Metasploit, Aircrack-ng suite, Social-Engineering Toolkit (SET), and more.
 
-✓ Beginner friendly, no complex syntaxes
+✓ Beginner friendly, no complex syntaxes    
 ✓ Step-by-step options to streamline the hacking process
 Integration with: 
 
