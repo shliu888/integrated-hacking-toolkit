@@ -9,7 +9,7 @@ Integration with:
 ✓ Aircrack-ng suite
 ✓ Social-Engineering Toolkit (SET)      
 ✓ Hydra      
-✓ Cupp
+✓ Cupp     
 ✓ Crunch     
 ✓ Arpspoof ... and more!
 
