@@ -279,7 +279,7 @@ def wirelessAttack(): # selection of options for wireless attacks
             
                 
             
-#-------------------------------------        
+  
 #-------------Main--------------------
 print('''
 
