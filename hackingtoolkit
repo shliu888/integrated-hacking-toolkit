@@ -273,7 +273,7 @@ def wirelessAttack(): # selection of options for wireless attacks
                 crackWifi(cap_file,wordlistName)
             elif createWordlist=='n':
                 print('Taking you to the wordlist generator. Come back when you are done.')
-                time.sleep(2)
+                time.sleep(1)
                 wordlist()
             else:
                 print('Invalid option')
