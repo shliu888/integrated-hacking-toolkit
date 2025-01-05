@@ -7,7 +7,7 @@ Integration with:
 
 ✓ Nmap     
 ✓ Metasploit      
-✓ Aircrack-ng suite
+✓ Aircrack-ng suite    
 ✓ Social-Engineering Toolkit (SET)      
 ✓ Hydra      
 ✓ Cupp     
