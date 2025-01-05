@@ -244,7 +244,7 @@ def wirelessAttack(): # selection of options for wireless attacks
             elif changeInterface=='n':
                 viewTraffic(monMode)
             else:
-                print(invalid option)
+                print('invalid option')
         elif WAchoice=='7':
             monMode = get_monitor_mode_interface()
             ifDeauth=input('Would you like to deauthenticate a client to speed up the process [y/n]: ')
