@@ -191,11 +191,11 @@ def wirelessAttack(): # selection of options for wireless attacks
     ''')
         WAchoice=input('Select an option: ')
         if WAchoice=='1':
-            check_command = ["airmon-ng", "check"]
+            command = ["airmon-ng", "check"]
     
             try:
                 
-                check_output = subprocess.run(check_command, capture_output=True, text=True, check=True)
+                check_output = subprocess.run(command, capture_output=True, text=True, check=True)
                 print("Processes that may interfere with airmon-ng:")
                 print(check_output.stdout)
         
