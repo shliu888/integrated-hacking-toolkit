@@ -3,17 +3,20 @@ import subprocess
 from scapy.all import *
 import argparse
 import time
-def crackWifi(cap_file, wordlist): # crack Wifi password for WPA/WPA2 networks
-    command = [
-        'sudo','aircrack-ng',cap_file,'-w',wordlist
-    ]
 
+
+def crack_wifi_password(cap_file, wordlist):
     try:
-        
-        subprocess.run(command, shell=True, check=True)
-    except subprocess.CalledProcessError as e:
-        
-        print(f"Error: {e}")
+        results = subprocess.run(['sudo', 'aircrack-ng', cap_file, '-w', wordlist], text=True, capture_output=True)
+        print(results.stdout)
+    except subprocessError as e:
+        print("Error: aircrack-ng encountered an error: str(e)")
+    except FileNotFoundError:
+        print("Error: One of the required files (capture file or wordlist) could not be found.")
+    except Exception as ex:
+        print("An unexpected error occurred: str(ex)")
+
+
 #-------Wordlist--------
 def crunch(min_chars, max_chars, characters, pattern, filename): # use crunch tool
     command = [
@@ -31,13 +34,14 @@ def crunch(min_chars, max_chars, characters, pattern, filename): # use crunch to
 
 
 
-def cupp(): # use cupp tool
-    try:
-        subprocess.run(['sudo', 'cupp', '-i'])
-    except FileNotFoundError:
-        print("Error: The 'cupp' tool is not installed or not found in the system's PATH.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+def cupp_tool():
+ try:
+ # Run the cupp tool using subprocess
+ subprocess.run(['sudo', 'cupp', '-i'])
+ except FileNotFoundError:
+ print("Uh oh, it looks like the 'cupp' tool isn't installed or can't be found in your system's PATH.")
+ except Exception as e:
+ print("Oh no, something went wrong! Here's the error message:", str(e))
 #-----------------------        
 def wordlist():
     while True:
@@ -49,7 +53,7 @@ def wordlist():
 ''')
         wordlistChoice=input('Select an option: ')
         if wordlistChoice=='1':
-            cupp()
+            cupp_tool()
         elif wordlistChoice=='2':
             min_chars=input('Enter the minimum characters for the words generated: ')
             max_chars=input('Enter the maximum characters for the words generated: ')
@@ -270,7 +274,7 @@ def wirelessAttack(): # selection of options for wireless attacks
             if createWordlist=='y':
                 cap_file=input('Enter the name of the .cap file with the four-way handshake: ')
                 wordlistName=input('Enter the name of the wordlist: ')
-                crackWifi(cap_file,wordlistName)
+                crack_wifi_password(cap_file,wordlistName)
             elif createWordlist=='n':
                 print('Taking you to the wordlist generator. Come back when you are done.')
                 time.sleep(1)
