@@ -4,7 +4,25 @@ from scapy.all import *
 import argparse
 import time
 
-
+def use_nmap():
+    print('''
+1. TCP SYN scan (stealth scan) (-sS)
+2. TCP connect scan -sT
+#---------Recon------------------
+def recon():
+    while True:
+        print('''
+    1. Scan with Nmap
+    2. Scan with Zenmap (Nmap GUI)
+    3. OSINT
+    BACK. Back to main menu
+    
+    ''')
+        reconOption=input('Select option')
+        if reconOption=='1':
+            use_nmap()
+        
+#-----------------------------------
 def crack_wifi_password(cap_file, wordlist):
     try:
         results = subprocess.run(['sudo', 'aircrack-ng', cap_file, '-w', wordlist], text=True, capture_output=True)
@@ -18,7 +36,7 @@ def crack_wifi_password(cap_file, wordlist):
 
 
 #-------Wordlist--------
-def crunch(min_chars, max_chars, characters, pattern, filename): # use crunch tool
+def crunch_passwd(min_chars, max_chars, characters, pattern, filename): # use crunch tool
     command = [
         'sudo', 'crunch', str(min_chars), str(max_chars), characters,
         '-t', pattern, '-i', filename
@@ -34,7 +52,7 @@ def crunch(min_chars, max_chars, characters, pattern, filename): # use crunch to
 
 
 
-def cupp_tool():
+def use_cup():
  try:
  # Run the cupp tool using subprocess
  subprocess.run(['sudo', 'cupp', '-i'])
@@ -53,14 +71,14 @@ def wordlist():
 ''')
         wordlistChoice=input('Select an option: ')
         if wordlistChoice=='1':
-            cupp_tool()
+            use_cupp()
         elif wordlistChoice=='2':
             min_chars=input('Enter the minimum characters for the words generated: ')
             max_chars=input('Enter the maximum characters for the words generated: ')
             characters=input('Enter the characters that you would like to use (e.g. ABCD123 to include only A,B,C,D,1,2,3): ')
             pattern=input("Enter the pattern that you would like the words to have (e.g. a@@@b to generate words that starts with 'a' and ends with 'b' and contains a total of 5 characters): ")
             wordlist_file=input('Enter the name of the file you would like to save the wordlist to: ')
-            crunch(min_chars,max_chars,characters,pattern,wordlist_file)
+            crunch_passwd(min_chars,max_chars,characters,pattern,wordlist_file)
         elif wordlistChoice=='BACK':
             main()
         else:
@@ -84,7 +102,7 @@ def captureHandshake(bssid, channel, filename, interface): # capture a four-way 
     
     try:
         subprocess.run(command, check=True)
-    except subprocess.CalledProcessError as e:
+    except subprocessError as e:
         print("Error running airodump-ng: ",e)
 
     
@@ -94,8 +112,8 @@ def arpSpoof(interface,target_ip,router_ip): # ARP spoofing
     subprocess.run(["sudo", "netdiscover", "-i", interface])
 
 
-    with open("/proc/sys/net/ipv4/ip_forward", "w") as f:
-        f.write("1")
+    with open("/proc/sys/net/ipv4/ip_forward", "w") as ip:
+        ip.write("1")
 
 
     subprocess.Popen(["arpspoof", "-i", interface, "-t", target_ip, router_ip])
