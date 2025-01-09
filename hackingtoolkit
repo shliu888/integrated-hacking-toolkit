@@ -421,31 +421,32 @@ Tip: Switch to root before running this tool to get a smoother experience
 ''')
 
 def main():
-    print('''
+    while True:
+        print('''
+1. Wireless Attacks
+2. Scanning and Reconnaissance
+3. Social Engineering Attacks
+4. Payload Generator
+5. Password Attacks
+6. Create a wordlist
 
-    1. Wireless Attacks
-    2. Scanning and Reconnaissance
-    3. Social Engineering Attacks
-    4. Payload Generator
-    5. Password Attacks
-    6. Create a wordlist
-    ''')
+''')
 
-    choice1= input('Select an option: ')
+        choice1= input('Select an option: ')
 
-    if choice1=='1':
-        wirelessAttack()
-    elif choice1=='2':
-        recon()
-    elif choice1=='3':
-        socialEngineering()
-    elif choice1=='4':
-        payload()
-    elif choice1=='5':
-        passwdAttacks()
-    elif choice1=='6':
-        wordlist()
-    else:
-        print('Invalid option')
+        if choice1=='1':
+            wirelessAttack()
+        elif choice1=='2':
+            recon()
+        elif choice1=='3':
+            socialEngineering()
+        elif choice1=='4':
+            payload()
+        elif choice1=='5':
+            passwdAttacks()
+        elif choice1=='6':
+            wordlist()
+        else:
+            print('Invalid option')
 #-----------------------------------
 main()
