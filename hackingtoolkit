@@ -3,15 +3,25 @@ import subprocess
 from scapy.all import *
 import argparse
 import time
-def tcp_syn_scan(nmap_choice,target,port_range,if_service_detection):
+def tcp_syn_scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
     if not if_service_detection=='-sV':
-        subprocess.run(['sudo','
-def nmap_dashboard():
+        try:
+            subprocess.run(['sudo','nmap',nmap_choice,'-p',str(port_range),str(target)])
+        except subprocessError as e:
+            print('Encountered an error: ',str(e))
+        except FileNotFoundError:
+            print('File not found')
+    if if_service_detection=='-sV':
+        try:
+            
+def nmap_menu():
     print('''
 1. TCP SYN scan (stealth scan) (-sS)
 2. TCP connect scan (-sT)
 3. UDP scan (-sU)
 4. TCP ACK scan (-sA)
+
+Note: More options will be added in the future
 RECON_MENU. Return to Scanning and Reconnaissance menu
 BACK. Back to main menu
 ''')
@@ -49,7 +59,7 @@ def recon():
     ''')
         reconOption=input('Select option: ')
         if reconOption=='1':
-            nmap_dashboard()
+            nmap_menu()
         
 #-----------------------------------
 def crack_wifi_password(cap_file, wordlist):
@@ -86,9 +96,9 @@ def use_cup():
  # Run the cupp tool using subprocess
  subprocess.run(['sudo', 'cupp', '-i'])
  except FileNotFoundError:
- print("Uh oh, it looks like the 'cupp' tool isn't installed or can't be found in your system's PATH.")
+ print("The 'cupp' tool is not installed or not in system PATH. ")
  except Exception as e:
- print("Oh no, something went wrong! Here's the error message:", str(e))
+ print("Something went wrong: ", str(e))
 #-----------------------        
 def wordlist():
     while True:
