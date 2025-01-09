@@ -28,4 +28,4 @@ Getting started:
 4. Finally, run install.sh with sudo privileges to finalize installation.
 5. Run the toolkit with the command "hackingtoolkit"
 
-𝐍𝐨𝐭𝐞: This tool is currently designed for Kali Linux, a Linux distribution built for penetration testing. In order to run install-python.sh, install-dependencies.sh and install-pip.sh, you must have Debian or a Debian-based distribution (like Ubuntu and Kali Linux). Otherwise, you must install necessary dependencies separately.
+𝗡𝗼𝘁𝗲: This tool is currently designed for Kali Linux, a Linux distribution built for penetration testing. In order to run install-python.sh, install-dependencies.sh and install-pip.sh, you must have Debian or a Debian-based distribution (like Ubuntu and Kali Linux). Otherwise, you must install necessary dependencies separately.
