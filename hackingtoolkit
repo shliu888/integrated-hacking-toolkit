@@ -3,7 +3,7 @@ import subprocess
 from scapy.all import *
 import argparse
 import time
-def tcp_syn_scan(nmap_choice,target,port_range):
+def tcp_syn_scan(nmap_choice,target,port_range,if_service_detection):
     
 def nmap_dashboard():
     print('''
@@ -17,8 +17,11 @@ BACK. Back to main menu
     nmap_choice=input('Choose an option: ')
     target=input('Enter the IP of the host/network you want to scan: ')
     port_range=input('Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports): ')
-        if port_range=='top':
-            port_range='--top-ports 1000'
+    if_version_detection=input('Do you want version detection [y/n]: ')
+    if if_version_detection=='y':
+        if_version_detection='-sV'
+    if port_range=='top':
+        port_range='--top-ports 1000'
     if nmap_choice=='1':
         tcp_syn_scan()
     elif nmap_choice=='2':
