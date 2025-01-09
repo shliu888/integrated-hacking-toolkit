@@ -3,11 +3,37 @@ import subprocess
 from scapy.all import *
 import argparse
 import time
-
-def use_nmap():
+def tcp_syn_scan(nmap_choice,target,port_range):
+    
+def nmap_dashboard():
     print('''
 1. TCP SYN scan (stealth scan) (-sS)
-2. TCP connect scan -sT
+2. TCP connect scan (-sT)
+3. UDP scan (-sU)
+4. TCP ACK scan (-sA)
+RECON_MENU. Return to Scanning and Reconnaissance menu
+BACK. Back to main menu
+''')
+    nmap_choice=input('Choose an option: ')
+    target=input('Enter the IP of the host/network you want to scan: ')
+    port_range=input('Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports): ')
+        if port_range=='top':
+            port_range='--top-ports 1000'
+    if nmap_choice=='1':
+        tcp_syn_scan()
+    elif nmap_choice=='2':
+        tcp_connect()
+    elif nmap_choice=='3':
+        udp()
+    elif nmap_choice=='4':
+        tcp_ack()
+    elif nmap_choice=='RECON_MENU':
+        recon()
+    elif nmap_choice=='BACK':
+        main()
+    else:
+        print('Invalid option')
+    
 #---------Recon------------------
 def recon():
     while True:
@@ -18,9 +44,9 @@ def recon():
     BACK. Back to main menu
     
     ''')
-        reconOption=input('Select option')
+        reconOption=input('Select option: ')
         if reconOption=='1':
-            use_nmap()
+            nmap_dashboard()
         
 #-----------------------------------
 def crack_wifi_password(cap_file, wordlist):
