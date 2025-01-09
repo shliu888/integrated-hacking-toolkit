@@ -10,8 +10,7 @@ def maltego():
         print('Encountered an error: ',str(error))
 #----OSINT main menu------
 def osint():
-    while True:
-        print('''
+    print('''
 1. Maltego
 2. theHarvester
 3. Recon-ng
@@ -21,23 +20,23 @@ def osint():
 RECON_MENU. Return to Scanning and Reconnaissance menu
 BACK. Back to main menu
 ''')
-        osintOption=input('Select an option: ')
-        if osintOption=='1':
-            maltego()
-        elif osintOption=='2':
-            the_harvester()
-        elif osintOption=='3':
-            recon_ng()
-        elif osintOption=='4':
-            whois()
-        elif osintOption=='5':
-            nikto()
-        elif osintOption=='RECON_MENU':
-            recon()
-        elif osintOption=='BACK':
-            main()
-        else:
-            print('Invalid option')
+    osintOption=input('Select an option: ')
+    if osintOption=='1':
+        maltego()
+    elif osintOption=='2':
+        the_harvester()
+    elif osintOption=='3':
+        recon_ng()
+    elif osintOption=='4':
+        whois()
+    elif osintOption=='5':
+        nikto()
+    elif osintOption=='RECON_MENU':
+        recon()
+    elif osintOption=='BACK':
+        main()
+    else:
+        print('Invalid option')
 #-------Zenmap------
 def zenmap_menu():
     try:
@@ -63,8 +62,8 @@ def scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
             print("The tool 'nmap' is not installed or not in system PATH.")
             
 def nmap_menu():
-    while True:
-        print('''
+
+    print('''
 1. TCP SYN scan (stealth scan) (-sS)
 2. TCP connect scan (-sT)
 3. UDP scan (-sU)
@@ -74,36 +73,36 @@ Note: More options will be added in the future
 RECON_MENU. Return to Scanning and Reconnaissance menu
 BACK. Back to main menu
 ''')
-        nmap_choice=input('Choose an option: ')
-        target=input('Enter the IP of the host/network you want to scan: ')
-        port_range=input("Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports (default) ): ")
-        if_version_detection=input('Do you want version detection [y/n]: ')
-        if nmap_choice=='1':
-            nmap_choice=='-sS'
-        elif nmap_choice=='2':
-            nmap_choice='-sT'
-        elif nmap_choice=='3':
-            nmap_choice='-sU'
-        elif nmap_choice=='4':
-            nmap_choice='-sA'
-        elif nmap_choice=='RECON_MENU':
-            recon()
-        elif nmap_choice=='BACK':
-            main()
-        else:
-            print('Invalid option')
-        if if_version_detection=='y':
-            if_version_detection='-sV'
-        if port_range=='top':
-            port_range='--top-ports 1000'
-        if nmap_choice=='1':
-            scan(nmap_choice,target,port_range,if_service_detection)
-        elif nmap_choice=='2':
+    nmap_choice=input('Choose an option: ')
+    target=input('Enter the IP of the host/network you want to scan: ')
+    port_range=input("Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports (default) ): ")
+    if_version_detection=input('Do you want version detection [y/n]: ')
+    if nmap_choice=='1':
+        nmap_choice='-sS'
+    elif nmap_choice=='2':
+        nmap_choice='-sT'
+    elif nmap_choice=='3':
+        nmap_choice='-sU'
+    elif nmap_choice=='4':
+        nmap_choice='-sA'
+    elif nmap_choice=='RECON_MENU':
+        recon()
+    elif nmap_choice=='BACK':
+        main()
+    else:
+        print('Invalid option')
+    if if_version_detection=='y':
+        if_version_detection='-sV'
+    if port_range=='top':
+        port_range='--top-ports 1000'
+    if nmap_choice=='1':
+        scan(nmap_choice,target,port_range,if_service_detection)
+    if nmap_choice=='2':
             scan(nmap_choice,target,port_range,if_service_detection)(nmap_choice,target,port_range,if_service_detection)
-        elif nmap_choice=='3':
-            scan(nmap_choice,target,port_range,if_service_detection)
-        elif nmap_choice=='4':
-            scan(nmap_choice,target,port_range,if_service_detection)
+    if nmap_choice=='3':
+        scan(nmap_choice,target,port_range,if_service_detection)
+    if nmap_choice=='4':
+        scan(nmap_choice,target,port_range,if_service_detection)
     
 #---------Recon main menu------------------
 def recon():
