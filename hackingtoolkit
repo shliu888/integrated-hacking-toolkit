@@ -5,7 +5,9 @@ import argparse
 import time
 def maltego():
     try:
-        subprocess.run(['sudo','maltego'
+        subprocess.run(['sudo','maltego'])
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
 #----OSINT main menu------
 def osint():
     while True:
