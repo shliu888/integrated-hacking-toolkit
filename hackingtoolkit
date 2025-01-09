@@ -4,7 +4,8 @@ from scapy.all import *
 import argparse
 import time
 def tcp_syn_scan(nmap_choice,target,port_range,if_service_detection):
-    
+    if not if_service_detection=='-sV':
+        subprocess.run(['sudo','
 def nmap_dashboard():
     print('''
 1. TCP SYN scan (stealth scan) (-sS)
@@ -16,7 +17,7 @@ BACK. Back to main menu
 ''')
     nmap_choice=input('Choose an option: ')
     target=input('Enter the IP of the host/network you want to scan: ')
-    port_range=input('Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports): ')
+    port_range=input('Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports (default) ): ')
     if_version_detection=input('Do you want version detection [y/n]: ')
     if if_version_detection=='y':
         if_version_detection='-sV'
@@ -45,7 +46,6 @@ def recon():
     2. Scan with Zenmap (Nmap GUI)
     3. OSINT
     BACK. Back to main menu
-    
     ''')
         reconOption=input('Select option: ')
         if reconOption=='1':
