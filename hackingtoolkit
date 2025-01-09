@@ -61,7 +61,12 @@ def scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
             print('Encountered an error: ',str(e))
         except FileNotFoundError:
             print("The tool 'nmap' is not installed or not in system PATH.")
-            
+def nmap_selection():
+    global nmap_choice, target, port_range, if_version_detection
+    nmap_choice=input('Choose an option: ')
+    target=input('Enter the IP of the host/network you want to scan: ')
+    port_range=input("Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports (default) ): ")
+    if_version_detection=input('Do you want version detection [y/n]: ')
 def nmap_menu():
     while True:
         print('''
@@ -74,17 +79,17 @@ Note: More options will be added in the future
 RECON_MENU. Return to Scanning and Reconnaissance menu
 BACK. Back to main menu
 ''')
-        nmap_choice=input('Choose an option: ')
-        target=input('Enter the IP of the host/network you want to scan: ')
-        port_range=input("Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports (default) ): ")
-        if_version_detection=input('Do you want version detection [y/n]: ')
         if nmap_choice=='1':
+            nmap_selection()
             nmap_choice='-sS'
         elif nmap_choice=='2':
+            nmap_selection()
             nmap_choice='-sT'
         elif nmap_choice=='3':
+            nmap_selection()
             nmap_choice='-sU'
         elif nmap_choice=='4':
+            nmap_selection()
             nmap_choice='-sA'
         elif nmap_choice=='RECON_MENU':
             recon()
