@@ -3,20 +3,66 @@ import subprocess
 from scapy.all import *
 import argparse
 import time
-def tcp_syn_scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
+def maltego():
+    try:
+        subprocess.run(['sudo','maltego'
+#----OSINT main menu------
+def osint():
+    while True:
+        print('''
+1. Maltego
+2. theHarvester
+3. Recon-ng
+4. Whois
+5. Nikto
+
+RECON_MENU. Return to Scanning and Reconnaissance menu
+BACK. Back to main menu
+''')
+        osintOption=input('Select an option: ')
+        if osintOption=='1':
+            maltego()
+        elif osintOption=='2':
+            the_harvester()
+        elif osintOption=='3':
+            recon_ng()
+        elif osintOption=='4':
+            whois()
+        elif osintOption=='5':
+            nikto()
+        elif osintOption=='RECON_MENU':
+            recon()
+        elif osintOption=='BACK':
+            main()
+        else:
+            print('Invalid option')
+#-------Zenmap------
+def zenmap_menu():
+    try:
+        subprocess.run(['sudo','zenmap'])
+    except subprocess.subprocessError as error:
+        print('Encountered error: ',str(error))
+
+#-----------------------------------
+def scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
     if not if_service_detection=='-sV':
         try:
             subprocess.run(['sudo','nmap',nmap_choice,'-p',str(port_range),str(target)])
-        except subprocessError as e:
+        except subprocess.subprocessError as e:
             print('Encountered an error: ',str(e))
         except FileNotFoundError:
-            print('File not found')
+            print("The tool 'nmap' is not installed or not in system PATH.")
     if if_service_detection=='-sV':
         try: 
-            subprocess.run(['sudo','nmap',nmap_choice,if_service_detection,
+            subprocess.run(['sudo','nmap',nmap_choice,if_service_detection,'-p',str(port_range),str(target)])
+        except subprocess.subprocessError as e:
+            print('Encountered an error: ',str(e))
+        except FileNotFoundError:
+            print("The tool 'nmap' is not installed or not in system PATH.")
             
 def nmap_menu():
-    print('''
+    while True:
+        print('''
 1. TCP SYN scan (stealth scan) (-sS)
 2. TCP connect scan (-sT)
 3. UDP scan (-sU)
@@ -26,30 +72,38 @@ Note: More options will be added in the future
 RECON_MENU. Return to Scanning and Reconnaissance menu
 BACK. Back to main menu
 ''')
-    nmap_choice=input('Choose an option: ')
-    target=input('Enter the IP of the host/network you want to scan: ')
-    port_range=input('Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports (default) ): ')
-    if_version_detection=input('Do you want version detection [y/n]: ')
-    if if_version_detection=='y':
-        if_version_detection='-sV'
-    if port_range=='top':
-        port_range='--top-ports 1000'
-    if nmap_choice=='1':
-        tcp_syn_scan()
-    elif nmap_choice=='2':
-        tcp_connect()
-    elif nmap_choice=='3':
-        udp()
-    elif nmap_choice=='4':
-        tcp_ack()
-    elif nmap_choice=='RECON_MENU':
-        recon()
-    elif nmap_choice=='BACK':
-        main()
-    else:
-        print('Invalid option')
+        nmap_choice=input('Choose an option: ')
+        target=input('Enter the IP of the host/network you want to scan: ')
+        port_range=input("Input ports to scan (all ports is 1-65535, 'top' for top 1000 ports (default) ): ")
+        if_version_detection=input('Do you want version detection [y/n]: ')
+        if nmap_choice=='1':
+            nmap_choice=='-sS'
+        elif nmap_choice=='2':
+            nmap_choice='-sT'
+        elif nmap_choice=='3':
+            nmap_choice='-sU'
+        elif nmap_choice=='4':
+            nmap_choice='-sA'
+        elif nmap_choice=='RECON_MENU':
+            recon()
+        elif nmap_choice=='BACK':
+            main()
+        else:
+            print('Invalid option')
+        if if_version_detection=='y':
+            if_version_detection='-sV'
+        if port_range=='top':
+            port_range='--top-ports 1000'
+        if nmap_choice=='1':
+            scan(nmap_choice,target,port_range,if_service_detection)
+        elif nmap_choice=='2':
+            scan(nmap_choice,target,port_range,if_service_detection)(nmap_choice,target,port_range,if_service_detection)
+        elif nmap_choice=='3':
+            scan(nmap_choice,target,port_range,if_service_detection)
+        elif nmap_choice=='4':
+            scan(nmap_choice,target,port_range,if_service_detection)
     
-#---------Recon------------------
+#---------Recon main menu------------------
 def recon():
     while True:
         print('''
@@ -61,6 +115,10 @@ def recon():
         reconOption=input('Select option: ')
         if reconOption=='1':
             nmap_menu()
+        elif reconOption=='2':
+            zenmap_menu()
+        elif reconOption=='3':
+            osint()
         
 #-----------------------------------
 def crack_wifi_password(cap_file, wordlist):
@@ -176,10 +234,10 @@ def deauthenticate(deauth_packets, bssid, client_mac, interface): #deauth attack
         
         subprocess.run(command, check=True)
         print("Deauthentication packets sent successfully.")
-    except subprocess.CalledProcessError as e:
-        print("An error occurred while sending deauth packets:",e)
-    except Exception as e:
-        print("An unexpected error occurred:",e)
+    except subprocess.SubprocessError as e:
+        print("An error occurred while sending deauth packets:",str(e))
+    except Exception as ex:
+        print("An unexpected error occurred:",str(ex))
 def capture_packets(bssid, channel, interface, filename): # targeted packet capture
     
     
@@ -212,7 +270,7 @@ def get_monitor_mode_interface(): # get the name of the interface in monitor mod
         
         return None
         
-    except (subprocess.CalledProcessError, FileNotFoundError):
+    except (subprocess.SubprocessError, FileNotFoundError):
         
         return None
 def sniff(interface): # start sniffing on all frequencies
@@ -222,12 +280,12 @@ def sniff(interface): # start sniffing on all frequencies
         
         
         subprocess.run(command, check=True)
-    except subprocess.CalledProcessError as e:
-        print("An error occurred while running airodump-ng: ",e)
+    except subprocess.SubprocessError as e:
+        print("An error occurred while running airodump-ng: ",str(e))
     except FileNotFoundError:
         print("airodump-ng is not installed or not found in the system path.")
-    except Exception as e:
-        print("An unexpected error occurred: ",e)
+    except Exception as ex:
+        print("An unexpected error occurred: ",str(ex))
         
 def monitor_mode(interface):
     try:
