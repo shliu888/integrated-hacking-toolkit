@@ -12,7 +12,8 @@ def tcp_syn_scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
         except FileNotFoundError:
             print('File not found')
     if if_service_detection=='-sV':
-        try:
+        try: 
+            subprocess.run(['sudo','nmap',nmap_choice,if_service_detection,
             
 def nmap_menu():
     print('''
