@@ -155,11 +155,11 @@ def crunch_passwd(min_chars, max_chars, characters, pattern, filename): # use cr
 def use_cup():
  try:
  # Run the cupp tool using subprocess
- subprocess.run(['sudo', 'cupp', '-i'])
- except FileNotFoundError:
- print("The 'cupp' tool is not installed or not in system PATH. ")
- except Exception as e:
- print("Something went wrong: ", str(e))
+     subprocess.run(['sudo', 'cupp', '-i'])
+     except FileNotFoundError:
+         print("The 'cupp' tool is not installed or not in system PATH. ")
+     except Exception as e:
+         print("Something went wrong: ", str(e))
 #-----------------------        
 def wordlist():
     while True:
