@@ -9,4 +9,8 @@ sudo apt install -y dsniff
 git clone https://github.com/Mebus/cupp.git
 cd cupp
 chmod +x cupp.py
+sudo apt install java-wrapper
+sudo apt install maltego
+sudo apt install theharvester -y
 echo "Completed installing tools."
+
