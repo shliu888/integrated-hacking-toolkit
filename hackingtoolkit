@@ -49,7 +49,7 @@ def zenmap_menu():
 def scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
     if not if_service_detection=='-sV':
         try:
-            subprocess.run(['sudo','nmap',nmap_choice,'-p',str(port_range),str(target)])
+            subprocess.run(['sudo','nmap',nmap_choice,'-p',str(port_range),str(target)],capture_output=True,text=True)
         except subprocess.subprocessError as e:
             print('Encountered an error: ',str(e))
         except FileNotFoundError:
