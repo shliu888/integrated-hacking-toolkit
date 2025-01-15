@@ -3,11 +3,15 @@ import subprocess
 from scapy.all import *
 import argparse
 import time
+def the_harvester():
+    try:
+        
 def maltego():
     try:
         subprocess.run(['sudo','maltego'],text=True, capture_output=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
+
 #----OSINT main menu------
 def osint():
     while True:
@@ -25,6 +29,8 @@ BACK. Back to main menu
         if osintOption=='1':
             maltego()
         elif osintOption=='2':
+            domain=input('Enter the domain name to search: ')
+            
             the_harvester()
         elif osintOption=='3':
             recon_ng()
@@ -425,6 +431,12 @@ def wirelessAttack(): # selection of options for wireless attacks
 #-------------------------------------        
 #-------------Main--------------------
 print('''
+.__                   __   .__                __                .__   __   .__  __   
+|  |__ _____    ____ |  | _|__| ____    _____/  |_  ____   ____ |  | |  | _|__|/  |_ 
+|  |  \\__  \ _/ ___\|  |/ /  |/    \  / ___\   __\/  _ \ /  _ \|  | |  |/ /  \   __\
+|   Y  \/ __ \\  \___|    <|  |   |  \/ /_/  >  | (  <_> |  <_> )  |_|    <|  ||  |  
+|___|  (____  /\___  >__|_ \__|___|  /\___  /|__|  \____/ \____/|____/__|_ \__||__|  
+     \/     \/     \/     \/       \//_____/                              \/         
 
 #######################################
 #        Author & Maintainer:         #
