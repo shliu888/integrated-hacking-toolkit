@@ -3,9 +3,52 @@ import subprocess
 from scapy.all import *
 import argparse
 import time
-def the_harvester():
-    try:
-        
+def the_harvester(domain, shodan,source,takeover):
+    if shodan=='-s' and source !='no':
+        if takeover=='-t':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain,'-s','-t','-b',source],text=True,check_output=True)
+            except subprocess.SubprocessError as error:
+                print('Encountered an error: ',str(error))
+        elif takeover=='no':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain,'-s','-b',source],text=True,check_output=True)
+            except subprocess.SubprocessError as error:
+                print('Encountered an error: ',str(error))
+                
+    elif shodan!='s' and source !='no':
+        if takeover=='-t':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain,'-t','-b',source],check_output=True,text=True)
+            except subprocess.SubprocessError as error:
+                print('Encountered an error: ',str(error))
+        elif takeover=='no':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain,'-b',source],check_output=True,text=True)
+            except subprocess.SubprocessError as error:
+                print('Encountered an error: ',str(error))
+    elif shodan=='-s' and source=='no':
+        if takeover=='-t':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain,'-s','-t'],check_output=True,text=True)
+            except subprocess.SubprocessError as error:
+                print('Encountered an error: ',str(error))
+        elif takeover=='no':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain,'-s'],check_output=True,text=True)
+            except subprocess.SubprocessEror as error:
+                print('Encountered an error: ',str(error))
+    elif shodan!='-s' and source=='no':
+        if takeover=='-t':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain,'-t'],check_output=True,text=True)
+            except subprocess.SubprocessError as error:
+                print('Encountered an error: ',str(error))
+        elif takeover=='no':
+            try:
+                subprocess.run(['sudo','theHarvester','-d',domain],check_output=True,text=True)
+            except subprocess.SubprocessError as error:
+                print('Encountered an eror: ',str(error))
 def maltego():
     try:
         subprocess.run(['sudo','maltego'],text=True, capture_output=True)
@@ -44,8 +87,15 @@ def osint():
                 source='no'
             else:
                 print('Invalid option.')
+            takeover=input('Do you want to search for takeovers [y/n]: ')
+            if takeover=='y':
+                takeover='-t'
+            elif takeover=='n':
+                takeover='no'
+            else:
+                print('Invalid option.')
             
-            the_harvester()
+            the_harvester(domain, shodan,source,takeover)
         elif osintOption=='3':
             recon_ng()
         elif osintOption=='4':
