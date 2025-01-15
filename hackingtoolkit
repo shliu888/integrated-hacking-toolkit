@@ -5,7 +5,7 @@ import argparse
 import time
 def maltego():
     try:
-        subprocess.run(['sudo','maltego'])
+        subprocess.run(['sudo','maltego'],text=True, capture_output=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 #----OSINT main menu------
@@ -41,7 +41,7 @@ BACK. Back to main menu
 #-------Zenmap------
 def zenmap_menu():
     try:
-        subprocess.run(['sudo','zenmap'])
+        subprocess.run(['sudo','zenmap'],text=True, capture_output=True)
     except subprocess.subprocessError as error:
         print('Encountered error: ',str(error))
 
@@ -56,7 +56,7 @@ def scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
             print("The tool 'nmap' is not installed or not in system PATH.")
     if if_service_detection=='-sV':
         try: 
-            subprocess.run(['sudo','nmap',nmap_choice,if_service_detection,'-p',str(port_range),str(target)])
+            subprocess.run(['sudo','nmap',nmap_choice,if_service_detection,'-p',str(port_range),str(target)],text=True, capture_output=True)
         except subprocess.subprocessError as e:
             print('Encountered an error: ',str(e))
         except FileNotFoundError:
@@ -226,7 +226,7 @@ def captureHandshake(bssid, channel, filename, interface): # capture a four-way 
 def arpSpoof(interface,target_ip,router_ip): # ARP spoofing
 
 
-    subprocess.run(["sudo", "netdiscover", "-i", interface])
+    subprocess.run(["sudo", "netdiscover", "-i", interface],text=True, capture_output=True)
 
 
     with open("/proc/sys/net/ipv4/ip_forward", "w") as ip:
@@ -237,7 +237,7 @@ def arpSpoof(interface,target_ip,router_ip): # ARP spoofing
     subprocess.Popen(["arpspoof", "-i", interface, "-t", router_ip, target_ip])
 
 def viewTraffic(interface):
-    subprocess.Popen(["wireshark", "-i", interface])
+    subprocess.Popen(["wireshark", "-i", interface],text=True, capture_output=True)
 def deauthenticate(deauth_packets, bssid, client_mac, interface): #deauth attack
     try:
         
