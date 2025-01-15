@@ -30,6 +30,13 @@ BACK. Back to main menu
             maltego()
         elif osintOption=='2':
             domain=input('Enter the domain name to search: ')
+            shodan=input('Do you want to use Shodan to search [y/n]: ')
+            if shodan=='y':
+                shodan='-s'
+            elif shodan=='n':
+                shodan='no'
+            else:
+                print('Invalid option')
             
             the_harvester()
         elif osintOption=='3':
