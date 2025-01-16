@@ -16,7 +16,7 @@ Integration with:
 ✓ Crunch     
 ✓ Arpspoof ... and more!
 
-STATUS: Under development. Nmap section (under Scanning and Reconnaissance) has been completed, and OSINT section (also under Scanning and Reconnaissance), is due to be completed soon. 
+**STATUS: Under development**. Nmap section (under Scanning and Reconnaissance) has been completed, and OSINT section (also under Scanning and Reconnaissance), is due to be completed soon. 
 
 Feel free to suggest edits by creating a pull request.
 
