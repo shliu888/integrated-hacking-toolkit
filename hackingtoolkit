@@ -5,6 +5,17 @@ from scapy.all import *
 import argparse
 import time
 
+def nikto(host,port,if_ssl,output):
+    if if_ssl=='-ssl':
+        try:
+            subprocess.Popen(['sudo','nikto','-h',host,'-port',port,'-ssl','-output',output],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    elif if_ssl=='no':
+        try:
+            subprocess.Popen(['sudo','nikto','-h',host,'-port',port,'-output',output],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
 def whois(domain):
     try:
         subprocess.Popen(['whois',domain],text=True,check=True)
@@ -66,7 +77,7 @@ def the_harvester(domain, shodan,source,takeover):
                 print('Encountered an eror: ',str(error))
 def maltego():
     try:
-        subprocess(['sudo','maltego'],text=True, check=True)
+        subprocess.Popen(['sudo','maltego'],text=True, check=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 
@@ -117,17 +128,27 @@ def osint():
             domain=input('Enter the domain name: ')
             whois(domain)
         elif osintOption=='5':
-            nikto()
+            nikto_host=input('Enter the URL of the host you would like to scan (e.g. http://example.com): ')
+            nikto_port=input('Enter the port you would like to scan: ')
+            if_ssl=input('Do you want to scan for SSL vulnerabilities [y/n]: ')
+            nikto_output=input('Enter the name of the file you would like to save the output to: ')
+            if if_ssl=='y':
+                if_ssl='-ssl'
+            elif if_ssl=='n':
+                if_ssl='no'
+            else:
+                print('Invalid option.')
+            nikto(nikto_host,nikto_port,if_ssl,nikto_output)
         elif osintOption=='RECON_MENU':
             recon()
         elif osintOption=='BACK':
             main()
         else:
-            print('Invalid option')
+            print('Invalid option.')
 #-------Zenmap------
 def zenmap_menu():
     try:
-        subprocess(['sudo','zenmap'],text=True, capture_output=True)
+        subprocess.Popen(['sudo','zenmap'],text=True, check=True)
     except subprocess.subprocessError as error:
         print('Encountered error: ',str(error))
 
@@ -539,6 +560,7 @@ def main():
 [4] Payload Generator
 [5] Password Attacks
 [6] Create a wordlist
+[7] Utilities (e.g. Netcat)
 
 ''')
 
