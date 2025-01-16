@@ -12,5 +12,7 @@ chmod +x cupp.py
 sudo apt install java-wrapper
 sudo apt install maltego
 sudo apt install theharvester -y
+sudo apt install recon-ng
+sudo apt install whois
 echo "Completed installing tools."
 

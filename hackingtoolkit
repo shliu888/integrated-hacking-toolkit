@@ -4,57 +4,64 @@ from subprocess import Popen
 from scapy.all import *
 import argparse
 import time
+
 def recon_ng():
-    
+    try:
+        subprocess.Popen(['sudo','recon-ng'],text=True,check=True)
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
+
+
+
 def the_harvester(domain, shodan,source,takeover):
     if shodan=='-s' and source !='no':
         if takeover=='-t':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t','-b',source],text=True,check_output=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t','-b',source],text=True,check=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-b',source],text=True,check_output=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-b',source],text=True,check=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
                 
     elif shodan!='s' and source !='no':
         if takeover=='-t':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-t','-b',source],check_output=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-t','-b',source],check=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-b',source],check_output=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-b',source],check=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
     elif shodan=='-s' and source=='no':
         if takeover=='-t':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t'],check_output=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t'],check=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess(['sudo','theHarvester','-d',domain,'-s'],check_output=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain,'-s'],check=True,text=True)
             except subprocess.SubprocessEror as error:
                 print('Encountered an error: ',str(error))
     elif shodan!='-s' and source=='no':
         if takeover=='-t':
             try:
-                subprocess(['sudo','theHarvester','-d',domain,'-t'],check_output=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain,'-t'],check=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess(['sudo','theHarvester','-d',domain],check_output=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain],check=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an eror: ',str(error))
 def maltego():
     try:
-        subprocess(['sudo','maltego'],text=True, capture_output=True)
+        subprocess(['sudo','maltego'],text=True, check=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 
@@ -234,7 +241,7 @@ def crunch_passwd(min_chars, max_chars, characters, pattern, filename): # use cr
 
   
     try:
-        result = subprocess.Popen(command, check_output=True, text=True)
+        result = subprocess.Popen(command, check=True, text=True)
         print(result.stdout.decode())
     except subprocess.CalledProcessError as e:
         print("Error occurred:",e.stderr.decode())
@@ -324,7 +331,7 @@ def deauthenticate(deauth_packets, bssid, client_mac, interface): #deauth attack
         ]
 
         
-        subprocess.Popen(command, check_output=True,text=True)
+        subprocess.Popen(command, check=True,text=True)
         print("Deauthentication packets sent successfully.")
     except subprocess.SubprocessError as e:
         print("An error occurred while sending deauth packets:",str(e))
@@ -510,7 +517,7 @@ _/  |_|  |__   ____ |  |__ _____    ____ |  | _|__| ____    _____/  |_  ____   _
 #        Author & Maintainer:         #
 #                                     #
 #            Shu-Hao Liu              #
-#                                     #
+#              v0.2                   #
 #######################################
 
 Tip: Switch to root before running this tool to get a smoother experience
