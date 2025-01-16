@@ -26,8 +26,8 @@ Tip: Switch to root before downloading this repository to run everything with ro
 
 1. Run install-python.sh to install Python if it's not already installed
 2. Run install-pip.sh to install Pip if it's not already installed
-3. Run install-dependencies.sh to install necessary dependencies (required for most users)
-4. Run install-tools.sh to install necessary tools (Kali Linux users should do this step too, as there are external tools that aren't included with Kali Linux)
+3. Run install-kali.sh for Kali Linux users
+4. Run install-regular.sh for regular users
 5. Finally, run install.sh with sudo privileges to finalize installation.
 6. Run the toolkit with the command "hackingtoolkit" 
 

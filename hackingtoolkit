@@ -5,6 +5,11 @@ from scapy.all import *
 import argparse
 import time
 
+def whois(domain):
+    try:
+        subprocess.Popen(['whois',domain],text=True,check=True)
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
 def recon_ng():
     try:
         subprocess.Popen(['sudo','recon-ng'],text=True,check=True)
@@ -109,7 +114,8 @@ def osint():
         elif osintOption=='3':
             recon_ng()
         elif osintOption=='4':
-            whois()
+            domain=input('Enter the domain name: ')
+            whois(domain)
         elif osintOption=='5':
             nikto()
         elif osintOption=='RECON_MENU':
