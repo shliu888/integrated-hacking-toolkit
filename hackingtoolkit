@@ -10,51 +10,51 @@ def the_harvester(domain, shodan,source,takeover):
     if shodan=='-s' and source !='no':
         if takeover=='-t':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain,'-s','-t','-b',source],text=True,check_output=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t','-b',source],text=True,check_output=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain,'-s','-b',source],text=True,check_output=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-b',source],text=True,check_output=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
                 
     elif shodan!='s' and source !='no':
         if takeover=='-t':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain,'-t','-b',source],check_output=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-t','-b',source],check_output=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain,'-b',source],check_output=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-b',source],check_output=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
     elif shodan=='-s' and source=='no':
         if takeover=='-t':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain,'-s','-t'],check_output=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t'],check_output=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain,'-s'],check_output=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain,'-s'],check_output=True,text=True)
             except subprocess.SubprocessEror as error:
                 print('Encountered an error: ',str(error))
     elif shodan!='-s' and source=='no':
         if takeover=='-t':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain,'-t'],check_output=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain,'-t'],check_output=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.run(['sudo','theHarvester','-d',domain],check_output=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain],check_output=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an eror: ',str(error))
 def maltego():
     try:
-        subprocess.run(['sudo','maltego'],text=True, capture_output=True)
+        subprocess(['sudo','maltego'],text=True, capture_output=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 
@@ -114,7 +114,7 @@ def osint():
 #-------Zenmap------
 def zenmap_menu():
     try:
-        subprocess.run(['sudo','zenmap'],text=True, capture_output=True)
+        subprocess(['sudo','zenmap'],text=True, capture_output=True)
     except subprocess.subprocessError as error:
         print('Encountered error: ',str(error))
 
@@ -122,14 +122,14 @@ def zenmap_menu():
 def scan(nmap_choice,target,port_range,if_service_detection): # tcp scan
     if not if_service_detection=='-sV':
         try:
-            subprocess.run(['sudo','nmap',nmap_choice,'-p',str(port_range),str(target)],capture_output=True,text=True)
+            subprocess.Popen(['sudo','nmap',nmap_choice,'-p',str(port_range),str(target)],capture_output=True,text=True)
         except subprocess.subprocessError as e:
             print('Encountered an error: ',str(e))
         except FileNotFoundError:
             print("The tool 'nmap' is not installed or not in system PATH.")
     if if_service_detection=='-sV':
         try: 
-            subprocess.run(['sudo','nmap',nmap_choice,if_service_detection,'-p',str(port_range),str(target)],text=True, capture_output=True)
+            subprocess(['sudo','nmap',nmap_choice,if_service_detection,'-p',str(port_range),str(target)],text=True, capture_output=True)
         except subprocess.subprocessError as e:
             print('Encountered an error: ',str(e))
         except FileNotFoundError:
@@ -215,7 +215,7 @@ def recon():
 #-----------------------------------
 def crack_wifi_password(cap_file, wordlist):
     try:
-        results = subprocess.run(['sudo', 'aircrack-ng', cap_file, '-w', wordlist], text=True, capture_output=True)
+        results = subprocess.Popen(['sudo', 'aircrack-ng', cap_file, '-w', wordlist], text=True, capture_output=True)
         print(results.stdout)
     except subprocessError as e:
         print("Error: aircrack-ng encountered an error: str(e)")
@@ -234,7 +234,7 @@ def crunch_passwd(min_chars, max_chars, characters, pattern, filename): # use cr
 
   
     try:
-        result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.Popen(command, check_output=True, text=True)
         print(result.stdout.decode())
     except subprocess.CalledProcessError as e:
         print("Error occurred:",e.stderr.decode())
@@ -245,7 +245,7 @@ def crunch_passwd(min_chars, max_chars, characters, pattern, filename): # use cr
 def use_cupp():
     try:
  # Run the cupp tool using subprocess
-        subprocess.run(['sudo', 'cupp', '-i'])
+        subprocess(['sudo', 'cupp', '-i'])
     except FileNotFoundError:
         print("The 'cupp' tool is not installed or not in system PATH. ")
     except Exception as e:
@@ -291,7 +291,7 @@ def captureHandshake(bssid, channel, filename, interface): # capture a four-way 
 
     
     try:
-        subprocess.run(command, check=True)
+        subprocess(command, check=True)
     except subprocessError as e:
         print("Error running airodump-ng: ",e)
 
@@ -299,7 +299,7 @@ def captureHandshake(bssid, channel, filename, interface): # capture a four-way 
 def arpSpoof(interface,target_ip,router_ip): # ARP spoofing
 
 
-    subprocess.run(["sudo", "netdiscover", "-i", interface],text=True, capture_output=True)
+    subprocess.Popen(["sudo", "netdiscover", "-i", interface],text=True, capture_output=True)
 
 
     with open("/proc/sys/net/ipv4/ip_forward", "w") as ip:
@@ -324,7 +324,7 @@ def deauthenticate(deauth_packets, bssid, client_mac, interface): #deauth attack
         ]
 
         
-        subprocess.run(command, check=True)
+        subprocess.Popen(command, check_output=True,text=True)
         print("Deauthentication packets sent successfully.")
     except subprocess.SubprocessError as e:
         print("An error occurred while sending deauth packets:",str(e))
@@ -333,7 +333,7 @@ def deauthenticate(deauth_packets, bssid, client_mac, interface): #deauth attack
 def capture_packets(bssid, channel, interface, filename): # targeted packet capture
     
     
-    subprocess.run(['iwconfig', interface, 'channel', str(channel)])
+    subprocess(['iwconfig', interface, 'channel', str(channel)])
     
     
     print("Capturing packets on",interface,"for BSSID",bssid)
@@ -371,7 +371,7 @@ def sniff(interface): # start sniffing on all frequencies
         command = ['sudo','airodump-ng', interface, '-abg']
         
         
-        subprocess.run(command, check=True)
+        subprocess(command, check=True)
     except subprocess.SubprocessError as e:
         print("An error occurred while running airodump-ng: ",str(e))
     except FileNotFoundError:
@@ -382,7 +382,7 @@ def sniff(interface): # start sniffing on all frequencies
 def monitor_mode(interface):
     try:
         
-        subprocess.run(['sudo','airmon-ng', 'start', interface], check=True)
+        subprocess(['sudo','airmon-ng', 'start', interface], check=True)
         print("Successfully started monitor mode on",interface,'\n')
     except subprocess.CalledProcessError as e:
         print("Failed to start monitor mode on ",interface,': ',e)
@@ -407,13 +407,13 @@ def wirelessAttack(): # selection of options for wireless attacks
     
             try:
                 
-                check_output = subprocess.run(command, capture_output=True, text=True, check=True)
+                check_output = subprocess.Popen(command, capture_output=True, text=True, check=True)
                 print("Processes that may interfere with airmon-ng:")
                 print(check_output.stdout)
         
                 
                 kill_command = ["airmon-ng", "check", "kill"]
-                kill_output = subprocess.run(kill_command, capture_output=True, text=True, check=True)
+                kill_output = subprocess.Popen(kill_command, capture_output=True, text=True, check=True)
         
             
                 print(kill_output.stdout)
