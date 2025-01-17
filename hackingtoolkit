@@ -7,6 +7,8 @@ from scapy.all import *
 import argparse
 import time
 
+def netcat():
+    pass
 def utilities():
     print('''
 [1] Netcat
