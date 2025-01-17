@@ -7,18 +7,36 @@ from scapy.all import *
 import argparse
 import time
 
-def netcat():
-    pass
+def netcat(host,port,option):
+    if option=='tcp':
+        try:
+            subprocess.Popen(['sudo','nc',host,port])
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    elif option=='udp':
+        try:
+            subprocess.Popen(['sudo','nc','-u',host,port])
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
 def utilities():
     print('''
-[1] Netcat
+[1] Connect to a host and port with Netcat
 [2] Start an Apache Web server
 [3] Start a PostgreSQL server
 [BACK] Back to main menu
 ''')
     utilitiesOption=input('Select an option: ')
     if utilitiesOption=='1':
-        netcat()
+        netcat_host=input('Enter the name of the host you would like to connect to: ')
+        netcat_port=input('Enter the port you would like to connect to: ')
+        connectionType=input('Do you want a TCP or UDP connection [t/u]: ')
+        if connectionType=='t':
+            connectionType='tcp'
+        elif connectionType=='u':
+            connectionType='udp'
+        else:
+            print('Invalid option.')
+        netcat(netcat_host,netcat_port,connectionType)
     elif utilitiesOption=='2':
         apache()
     elif utilitiesOption=='3':
