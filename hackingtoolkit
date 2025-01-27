@@ -7,6 +7,40 @@ from scapy.all import *
 import argparse
 import time
 
+def john():
+    pass
+def onlineAttack():
+    target=input('Enter the IP address of the target: ')
+    username=input('Enter the username: ')
+    wordlist=input('Enter the name of the wordlist: ')
+    protocol=input('Enter the protocol (e.g. ftp, ssh, http): ')
+    print('''
+    hydra -l {} -P {} {}://{} -t 4
+    '''.format(username,wordlist,protocol,target))
+    try:
+        subprocess.run(['hydra','-l',username,'-P',wordlist,protocol+'://'+target,'-t','4'],text=True,check=True)
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
+def passwdAttacks():
+    while True:
+        print('''
+[1] Brute force a password with John the Ripper
+[2] Online attack with Hydra
+[3] Crack a password hash with Hashcat
+[BACK] Back to main menu
+              
+''')
+        passwdChoice=input('Select an option: ')
+        if passwdChoice=='1':
+            john()
+        elif passwdChoice=='2':
+            onlineAttack()
+        elif passwdChoice=='3':
+            hashcat()
+        elif passwdChoice=='BACK':
+            main()
+        else:
+            print('Invalid option.')
 def custom_payload():
     payload_type=input('Enter the type of payload you would like to generate: ')
     payload_format=input('Enter the format of the payload you would like to generate: ')
@@ -147,7 +181,9 @@ def utilities():
 [1] Connect to a host and port with Netcat
 [2] Start an Apache Web server
 [3] Start a PostgreSQL server
+[4] Create a wordlist
 [BACK] Back to main menu
+          
 ''')
     utilitiesOption=input('Select an option: ')
     if utilitiesOption=='1':
@@ -165,6 +201,8 @@ def utilities():
         apache()
     elif utilitiesOption=='3':
         postgresql()
+    elif utilitiesOption=='4':
+        wordlist()
     elif utilitiesOption=='BACK':
         main()
     else:
@@ -308,7 +346,6 @@ def osint():
 [3] Recon-ng
 [4] Whois
 [5] Nikto
-
 [RECON_MENU] Return to Scanning and Reconnaissance menu
 [BACK] Back to main menu
 ''')
@@ -394,8 +431,7 @@ def nmap_menu():
 [2] TCP connect scan (-sT)
 [3] UDP scan (-sU)
 [4] TCP ACK scan (-sA)
-
-Note: More options will be added in the future
+**Note**: More options will be added in the future
 [RECON_MENU] Return to Scanning and Reconnaissance menu
 [BACK] Back to main menu
 ''')
