@@ -16,7 +16,7 @@ Integration with:
 ✓ Crunch     
 ✓ Arpspoof ... and more!
 
-**STATUS: Under development**. The Scanning and Reconnaissance section has been completed and is included in v0.2. Currently working on Payload Generator section.
+**STATUS: Under development**. The Payload Generator section has been completed. v0.3
 
 Feel free to suggest edits by creating a pull request.
 
