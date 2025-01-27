@@ -16,7 +16,7 @@ Integration with:
 ✓ Crunch     
 ✓ Arpspoof ... and more!
 
-**STATUS: Under development**. The Payload Generator section has been completed. v0.3
+**STATUS: Under development**. The Payload Generator section has been completed. Working on Password Cracking section
 
 Feel free to suggest edits by creating a pull request.
 
