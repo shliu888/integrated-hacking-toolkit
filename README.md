@@ -21,7 +21,7 @@ Feel free to suggest edits by creating a pull request.
 
 Getting started:
 
-Tip: Switch to root before downloading this repository to run everything with root privileges
+Tip: Switch to root before downloading this repository to run everything with root privileges automatically
 
 1. Run install-python.sh to install Python if it's not already installed
 2. Run install-pip.sh to install Pip if it's not already installed
