@@ -7,8 +7,16 @@ from scapy.all import *
 import argparse
 import time
 
-def john():
-    pass
+def offline_attack():
+    hashfile=input('Enter the name of the file containing the password hash: ')
+    wordlist=input('Enter the name of the wordlist: ')
+    print('''
+    john --format=NT --wordlist={} {}
+    '''.format(wordlist,hashfile))
+    try:
+        subprocess.Popen(['john','--format=NT','--wordlist='+wordlist,hashfile],text=True,check=True)
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
 def onlineAttack():
     target=input('Enter the IP address of the target: ')
     username=input('Enter the username: ')
@@ -24,23 +32,28 @@ def onlineAttack():
 def passwdAttacks():
     while True:
         print('''
-[1] Brute force a password with John the Ripper
+[1] Offline Attack with John the Ripper
 [2] Online attack with Hydra
 [3] Crack a password hash with Hashcat
+[4] Create a wordlist
+
 [BACK] Back to main menu
               
 ''')
         passwdChoice=input('Select an option: ')
         if passwdChoice=='1':
-            john()
+            offline_attack()
         elif passwdChoice=='2':
             onlineAttack()
         elif passwdChoice=='3':
             hashcat()
+        elif passwdChoice=='4':
+            wordlist()
         elif passwdChoice=='BACK':
             main()
         else:
             print('Invalid option.')
+    
 def custom_payload():
     payload_type=input('Enter the type of payload you would like to generate: ')
     payload_format=input('Enter the format of the payload you would like to generate: ')
