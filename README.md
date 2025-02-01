@@ -16,8 +16,7 @@ Integration with:
 ✓ Crunch     
 ✓ The BeEF Framework ... and more!
 
-**STATUS: Under development**. v1.0 due to be released by Feb 15.          
-Feel free to suggest edits by creating a pull request.
+**STATUS: v1.0**
 
 Getting started:
 
