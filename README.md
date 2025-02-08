@@ -16,7 +16,7 @@ Integration with:
 ✓ Crunch     
 ✓ The BeEF Framework ... and more!
 
-**STATUS: v1.0**
+**STATUS: v1.1**
 
 Getting started:
 
