@@ -23,7 +23,7 @@ Getting started:
 Tip: Switch to root before downloading this repository to run everything with root privileges automatically
 
 1. Run install-python.sh to install Python if it's not already installed
-2. Run install-pip.sh to install Pip if it's not already installed
+2. Run install-pip.sh to install Pip if it's not already installed, then run "pip3 install -r requirements.txt"   
 3. Run install-kali.sh for Kali Linux users
 4. Run install-regular.sh for regular users
 5. Finally, run install.sh with sudo privileges to finalize installation.
