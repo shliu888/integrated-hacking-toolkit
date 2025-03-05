@@ -2,8 +2,10 @@
 
 Penetration testing automation wrapper that is fully integrated with Nmap, Metasploit, Aircrack-ng suite, Social-Engineering Toolkit (SET), and more.
 
-<img alt="Static Badge" src="https://img.shields.io/badge/Beginner_friendly-green?style=plastic">    
-✓ Step-by-step options to streamline the hacking process        
+<img alt="Static Badge" src="https://img.shields.io/badge/Beginner_friendly-green?style=plastic">     
+<img alt="Static Badge" src="https://img.shields.io/badge/STATUS%3A-v1.2-blue?style=plastic">      
+    
+<img alt="Static Badge" src="https://img.shields.io/badge/Step--by--step_options_to_streamline_the_hacking_process-orange?style=plastic">        
 
 Automates certain tasks in: 
 
@@ -16,7 +18,7 @@ Automates certain tasks in:
 ✓ Crunch     
 ✓ The BeEF Framework ... and more!
 
-<img alt="Static Badge" src="https://img.shields.io/badge/STATUS%3A-v1.2-blue?style=plastic">   
+
 
 Getting started:
 
