@@ -29,4 +29,4 @@ Tip: Switch to root before downloading this repository to run everything with ro
 3. Run "sudo ./install.sh" to finalize installation   
 4. Run the tool with the command "hackingtoolkit"!   
 
-**Note: This tool is specifically designed for Kali Linux, a penetration testing-focused Linux distribution, and its included files are optimized exclusively for use on Kali Linux.**
+**Note: This tool is specifically designed for Kali Linux, a penetration testing-focused Linux distribution, and the included files are optimized exclusively for use on Kali Linux.**
