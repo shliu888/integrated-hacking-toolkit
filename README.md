@@ -1,11 +1,11 @@
 **This is for ethical purposes only. The author(s) is not liable for any damage caused by using this tool.**
 
-Fully integrated hacking suite that includes Nmap, Metasploit, Aircrack-ng suite, Social-Engineering Toolkit (SET), and more.
+Penetration testing automation wrapper that is fully integrated with Nmap, Metasploit, Aircrack-ng suite, Social-Engineering Toolkit (SET), and more.
 
 ✓ Beginner friendly, no complex syntaxes    
 ✓ Step-by-step options to streamline the hacking process        
 
-Integration with: 
+Automates certain tasks in: 
 
 ✓ Nmap     
 ✓ Metasploit      
@@ -16,7 +16,7 @@ Integration with:
 ✓ Crunch     
 ✓ The BeEF Framework ... and more!
 
-**STATUS: v1.1**
+**STATUS: v1.2**
 
 Getting started:
 
