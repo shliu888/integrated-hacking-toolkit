@@ -16,7 +16,7 @@ Automates certain tasks in:
 ✓ Crunch     
 ✓ The BeEF Framework ... and more!
 
-<img alt="Static Badge" src="https://img.shields.io/badge/STATUS%3A-v1.2-blue">
+<img alt="Static Badge" src="https://img.shields.io/badge/STATUS%3A-v1.2-blue?style=plastic">   
 
 Getting started:
 
