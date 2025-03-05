@@ -22,11 +22,9 @@ Getting started:
 
 Tip: Switch to root before downloading this repository to run everything with root privileges automatically
 
-1. Run install-python.sh to install Python if it's not already installed
-2. Run install-pip.sh to install Pip if it's not already installed, then run "pip3 install -r requirements.txt"   
-3. Run install-kali.sh for Kali Linux users
-4. Run install-regular.sh for regular users
-5. Finally, run install.sh with sudo privileges to finalize installation.
-6. Run the toolkit with the command "hackingtoolkit" 
+1. Run "sudo ./install-pip.sh" if pip3 is not already installed (it should be on Kali Linux)    
+2. Run "pip3 install -r requirements.txt"   
+3. Run "sudo ./install.sh" to finalize installation   
+4. Run the tool with the command "hackingtoolkit"!   
 
 **Note**: This tool is currently designed for Kali Linux, a Linux distribution built for penetration testing. In order to run install-python.sh, install-dependencies.sh and install-pip.sh, you must have Debian or a Debian-based distribution (like Ubuntu and Kali Linux). Otherwise, you must install necessary dependencies separately.
