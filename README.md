@@ -2,7 +2,8 @@
 
 Penetration testing automation wrapper that is fully integrated with Nmap, Metasploit, Aircrack-ng suite, Social-Engineering Toolkit (SET), and more.
 
-✓ Beginner friendly, no complex syntaxes    
+<img alt="Static Badge" src="https://img.shields.io/badge/Beginner_friendly-green">      
+ 
 ✓ Step-by-step options to streamline the hacking process        
 
 Automates certain tasks in: 
