@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import socket
 import requests
 import subprocess
@@ -811,7 +812,7 @@ _/  |_|  |__   ____ |  |__ _____    ____ |  | _|__| ____    _____/  |_  ____   _
 #        Author & Maintainer:         #
 #                                     #
 #            Shu-Hao Liu              #
-#               v1.1                  #
+#               v1.2                  #
 #######################################
 
 Only use this tool for ethical purposes. The author(s) is not liable for any damage
@@ -832,6 +833,8 @@ def main():
 [6] Create a wordlist
 [7] Utilities (e.g. Netcat)
 
+[EXIT]
+
 ''')
 
         choice1= input('Select an option: ')
@@ -850,6 +853,8 @@ def main():
             wordlist()
         elif choice1=='7':
             utilities()
+        elif choice1=='EXIT':
+            sys.exit(0)
         else:
             print('Invalid option')
 #-----------------------------------
