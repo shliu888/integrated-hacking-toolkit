@@ -7,7 +7,25 @@ from subprocess import Popen
 from scapy.all import *
 import argparse
 import time
-
+def hashcat():
+    hashfile = input('Enter the name of the file containing the password hash: ')
+    wordlist = input('Enter the name of the wordlist: ')
+    hash_type = input('Enter the hash type (e.g., 0 for MD5, 1000 for NTLM): ')
+    print(f'''
+    Running Hashcat with the following parameters:
+    Hashfile: {hashfile}
+    Wordlist: {wordlist}
+    Hash Type: {hash_type}
+    Command: hashcat -m {hash_type} -a 0 {hashfile} {wordlist}
+    ''')
+    try:
+        subprocess.run(
+            ['hashcat', '-m', hash_type, '-a', '0', hashfile, wordlist],
+            text=True,
+            shell=True
+        )
+    except subprocess.SubprocessError as error:
+        print('Encountered an error while running Hashcat:', str(error))
 def offline_attack():
     hashfile=input('Enter the name of the file containing the password hash: ')
     wordlist=input('Enter the name of the wordlist: ')
