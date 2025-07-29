@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import sys
 import socket
 import requests
 import subprocess
@@ -7,25 +6,7 @@ from subprocess import Popen
 from scapy.all import *
 import argparse
 import time
-def hashcat():
-    hashfile = input('Enter the name of the file containing the password hash: ')
-    wordlist = input('Enter the name of the wordlist: ')
-    hash_type = input('Enter the hash type (e.g., 0 for MD5, 1000 for NTLM): ')
-    print(f'''
-    Running Hashcat with the following parameters:
-    Hashfile: {hashfile}
-    Wordlist: {wordlist}
-    Hash Type: {hash_type}
-    Command: hashcat -m {hash_type} -a 0 {hashfile} {wordlist}
-    ''')
-    try:
-        subprocess.run(
-            ['hashcat', '-m', hash_type, '-a', '0', hashfile, wordlist],
-            text=True,
-            shell=True
-        )
-    except subprocess.SubprocessError as error:
-        print('Encountered an error while running Hashcat:', str(error))
+
 def offline_attack():
     hashfile=input('Enter the name of the file containing the password hash: ')
     wordlist=input('Enter the name of the wordlist: ')
@@ -72,23 +53,7 @@ def passwdAttacks():
             main()
         else:
             print('Invalid option.')
-
-def payload_encode():
-    payload=input('Enter the name of the payload you would like to encode: ')
-    encoder=input("Enter the encoder you would like to use (type 'options' to see payload options): ")
-    if encoder=='options':
-        try:
-            subprocess.run(['msfvenom','-l','encoders'],text=True,shell=True)
-        except subprocess.SubprocessError as error:
-            print('Encountered an error: ',str(error))
-    encoder=input('Enter the encoder you would like to use: ')
-    print('''
-    msfvenom -p {} -e {} -f exe > encoded_payload.exe
-    '''.format(payload,encoder))
-    try:
-        subprocess.run(['msfvenom','-p',payload,'-e',encoder,'-f','exe','>','encoded_payload.exe'],text=True,shell=True)
-    except subprocess.SubprocessError as error:
-        print('Encountered an error: ',str(error))
+    
 def custom_payload():
     payload_type=input('Enter the type of payload you would like to generate: ')
     payload_format=input('Enter the format of the payload you would like to generate: ')
@@ -176,8 +141,7 @@ def payload():
         print('''
 [1] Generate a reverse shell payload (Meterpreter)
 [2] Generate a bind shell payload (Meterpreter)
-[3] Generate a custom payload with Msfvenom
-[4] Encode a payload with Msfvenom
+[3] Generate a custom payload
 [BACK] Back to main menu             
           
 ''')
@@ -206,8 +170,6 @@ def payload():
             custom_payload()
         elif payloadOption=='BACK':
             main()
-        elif payloadOption=='4':
-            payload_encode()
         else:
             print('Invalid option.')
 def postgresql():
@@ -486,6 +448,7 @@ def nmap_menu():
 [RECON_MENU] Return to Scanning and Reconnaissance menu
 [BACK] Back to main menu
 ''')
+        nmap_choice=input('Select an option: ')
         if nmap_choice=='1':
             nmap_choice=input('Choose an option: ')
             target=input('Enter the IP of the host/network you want to scan: ')
@@ -849,7 +812,7 @@ _/  |_|  |__   ____ |  |__ _____    ____ |  | _|__| ____    _____/  |_  ____   _
 #        Author & Maintainer:         #
 #                                     #
 #            Shu-Hao Liu              #
-#               v1.4                  #
+#               v1.0                  #
 #######################################
 
 Only use this tool for ethical purposes. The author(s) is not liable for any damage
@@ -870,8 +833,6 @@ def main():
 [6] Create a wordlist
 [7] Utilities (e.g. Netcat)
 
-[EXIT]
-
 ''')
 
         choice1= input('Select an option: ')
@@ -890,8 +851,6 @@ def main():
             wordlist()
         elif choice1=='7':
             utilities()
-        elif choice1=='EXIT':
-            sys.exit(0)
         else:
             print('Invalid option')
 #-----------------------------------
